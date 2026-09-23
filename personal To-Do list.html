@@ -1,0 +1,1442 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Jayshri Dhote | CM25083 🌸</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "DM Sans", sans-serif;
+
+            background:
+                radial-gradient(
+                    circle at 10% 10%,
+                    rgba(255, 182, 193, 0.55),
+                    transparent 25%
+                ),
+                radial-gradient(
+                    circle at 90% 15%,
+                    rgba(221, 214, 254, 0.65),
+                    transparent 25%
+                ),
+                radial-gradient(
+                    circle at 80% 90%,
+                    rgba(254, 215, 170, 0.5),
+                    transparent 25%
+                ),
+                #fffaf7;
+
+            min-height: 100vh;
+            color: #59424a;
+        }
+
+
+        .title-font {
+            font-family: "Playfair Display", serif;
+        }
+
+
+        /* Floral decoration */
+
+        .flower {
+            position: fixed;
+            font-size: 45px;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.7;
+            animation: floatFlower 5s ease-in-out infinite;
+        }
+
+
+        .flower-1 {
+            top: 70px;
+            left: 4%;
+        }
+
+        .flower-2 {
+            top: 180px;
+            right: 5%;
+            font-size: 35px;
+            animation-delay: 1s;
+        }
+
+        .flower-3 {
+            bottom: 80px;
+            left: 6%;
+            font-size: 32px;
+            animation-delay: 2s;
+        }
+
+        .flower-4 {
+            bottom: 30px;
+            right: 8%;
+            font-size: 45px;
+            animation-delay: 1.5s;
+        }
+
+
+        @keyframes floatFlower {
+
+            0%,100% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-15px) rotate(8deg);
+            }
+
+        }
+
+
+        /* Butterfly */
+
+        .butterfly {
+            position: fixed;
+            font-size: 27px;
+            animation: fly 7s ease-in-out infinite;
+            opacity: 0.65;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .butterfly-1 {
+            top: 35%;
+            left: 3%;
+        }
+
+        .butterfly-2 {
+            top: 60%;
+            right: 3%;
+            animation-delay: 2s;
+        }
+
+
+        @keyframes fly {
+
+            0%,100% {
+                transform: translate(0,0) rotate(-5deg);
+            }
+
+            50% {
+                transform: translate(15px,-20px) rotate(8deg);
+            }
+
+        }
+
+
+        /* Main card */
+
+        .cute-card {
+
+            background: rgba(255,255,255,0.78);
+
+            backdrop-filter: blur(18px);
+
+            -webkit-backdrop-filter: blur(18px);
+
+            border: 1px solid rgba(255,255,255,0.9);
+
+            box-shadow:
+                0 15px 40px rgba(180, 130, 145, 0.12);
+
+        }
+
+
+        /* Input */
+
+        .cute-input {
+
+            background: #fffafc;
+
+            border: 1px solid #f1dce3;
+
+            color: #59424a;
+
+            transition: all 0.25s ease;
+
+        }
+
+
+        .cute-input:focus {
+
+            outline: none;
+
+            border-color: #e9a9bc;
+
+            box-shadow:
+                0 0 0 4px rgba(233,169,188,0.15);
+
+        }
+
+
+        /* Add button */
+
+        .add-btn {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #eaa8bb,
+                    #c9a7df
+                );
+
+            color: white;
+
+            box-shadow:
+                0 8px 20px rgba(213, 157, 184, 0.3);
+
+            transition: all 0.25s ease;
+
+        }
+
+
+        .add-btn:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 12px 25px rgba(213,157,184,0.4);
+
+        }
+
+
+        /* Task */
+
+        .task {
+
+            background: rgba(255,250,252,0.9);
+
+            border: 1px solid #f4e1e7;
+
+            transition: all 0.25s ease;
+
+            animation: appear 0.35s ease;
+
+        }
+
+
+        .task:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 8px 22px rgba(180,130,145,0.12);
+
+        }
+
+
+        @keyframes appear {
+
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+
+        .completed {
+
+            text-decoration: line-through;
+
+            opacity: 0.45;
+
+        }
+
+
+        /* Checkbox */
+
+        .checkbox {
+
+            width: 27px;
+            height: 27px;
+
+            border-radius: 50%;
+
+            border: 2px solid #e5b6c5;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            transition: 0.25s;
+
+            flex-shrink: 0;
+
+        }
+
+
+        .checkbox:hover {
+
+            background: #fde8ef;
+
+        }
+
+
+        .checkbox.done {
+
+            background: #e5a9bd;
+
+            border-color: #e5a9bd;
+
+            color: white;
+
+        }
+
+
+        /* Filter buttons */
+
+        .filter-btn {
+
+            transition: 0.2s;
+
+        }
+
+
+        .filter-active {
+
+            background: #f4d7e1;
+
+            color: #9b596e;
+
+        }
+
+
+        /* Progress */
+
+        .progress-bg {
+
+            background: #f5e8ed;
+
+        }
+
+
+        .progress {
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #e9a8bc,
+                    #c7a5dc
+                );
+
+            transition: width 0.5s ease;
+
+        }
+
+
+        /* Scrollbar */
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #e4bac8;
+            border-radius: 20px;
+        }
+
+
+        /* Cute badge */
+
+        .badge {
+
+            background: #fff0f4;
+
+            color: #b26a7e;
+
+        }
+
+
+        /* Mobile */
+
+        @media(max-width:640px) {
+
+            .flower {
+                display: none;
+            }
+
+            .butterfly {
+                display: none;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- Decorative Flowers -->
+
+    <div class="flower flower-1">🌸</div>
+    <div class="flower flower-2">🌷</div>
+    <div class="flower flower-3">🌼</div>
+    <div class="flower flower-4">🌺</div>
+
+    <div class="butterfly butterfly-1">🦋</div>
+    <div class="butterfly butterfly-2">🦋</div>
+
+
+    <!-- MAIN -->
+
+    <main class="relative z-10 max-w-4xl mx-auto px-4 py-8 md:py-12">
+
+
+        <!-- Header -->
+
+        <header class="text-center mb-8">
+
+            <div class="text-5xl mb-3">
+                🌸
+            </div>
+
+            <p class="text-sm tracking-[3px] uppercase text-pink-400 font-semibold">
+                My Little Planner
+            </p>
+
+            <h1 class="title-font text-4xl md:text-6xl font-bold text-[#76505c] mt-2">
+
+                Bloom &
+                <span class="text-[#d48ba5]">
+                    Get Things Done
+                </span>
+
+            </h1>
+
+            <p class="text-[#a17c86] mt-3">
+                A little space to organize your beautiful day ✨
+            </p>
+
+            <div
+                id="currentDate"
+                class="inline-block mt-4 px-5 py-2 rounded-full badge text-sm">
+            </div>
+
+        </header>
+
+
+        <!-- Statistics -->
+
+        <section class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+
+            <div class="cute-card rounded-3xl p-4 text-center">
+
+                <div class="text-2xl mb-1">
+                    📝
+                </div>
+
+                <p class="text-xs text-[#a17c86]">
+                    Total
+                </p>
+
+                <h2
+                    id="totalTasks"
+                    class="text-2xl font-bold text-[#76505c]">
+                    0
+                </h2>
+
+            </div>
+
+
+            <div class="cute-card rounded-3xl p-4 text-center">
+
+                <div class="text-2xl mb-1">
+                    🌷
+                </div>
+
+                <p class="text-xs text-[#a17c86]">
+                    Done
+                </p>
+
+                <h2
+                    id="completedTasks"
+                    class="text-2xl font-bold text-[#8aa083]">
+                    0
+                </h2>
+
+            </div>
+
+
+            <div class="cute-card rounded-3xl p-4 text-center">
+
+                <div class="text-2xl mb-1">
+                    🌱
+                </div>
+
+                <p class="text-xs text-[#a17c86]">
+                    Pending
+                </p>
+
+                <h2
+                    id="pendingTasks"
+                    class="text-2xl font-bold text-[#c58a72]">
+                    0
+                </h2>
+
+            </div>
+
+
+            <div class="cute-card rounded-3xl p-4 text-center">
+
+                <div class="text-2xl mb-1">
+                    🦋
+                </div>
+
+                <p class="text-xs text-[#a17c86]">
+                    Progress
+                </p>
+
+                <h2
+                    id="progressText"
+                    class="text-2xl font-bold text-[#9d79b7]">
+                    0%
+                </h2>
+
+            </div>
+
+        </section>
+
+
+        <!-- Add Task -->
+
+        <section class="cute-card rounded-[30px] p-5 md:p-7 mb-6">
+
+            <div class="flex items-center gap-3 mb-5">
+
+                <div
+                    class="w-12 h-12 rounded-2xl bg-pink-100 flex items-center justify-center text-2xl">
+                    🌷
+                </div>
+
+                <div>
+
+                    <h2 class="title-font text-xl font-bold text-[#76505c]">
+                        Add a little task
+                    </h2>
+
+                    <p class="text-sm text-[#a17c86]">
+                        What would you like to accomplish today?
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- Task Name -->
+
+            <div class="mb-4">
+
+                <label class="text-sm font-semibold text-[#87646f]">
+                    Task
+                </label>
+
+                <input
+                    id="taskInput"
+                    type="text"
+                    placeholder="🌸 e.g. Finish my assignment..."
+                    class="cute-input w-full mt-2 px-4 py-3 rounded-2xl"
+                >
+
+            </div>
+
+
+            <div class="grid md:grid-cols-3 gap-3">
+
+
+                <!-- Category -->
+
+                <div>
+
+                    <label class="text-sm font-semibold text-[#87646f]">
+                        Category
+                    </label>
+
+                    <select
+                        id="categoryInput"
+                        class="cute-input w-full mt-2 px-4 py-3 rounded-2xl">
+
+                        <option value="📚 Academic">
+                            📚 Academic
+                        </option>
+
+                        <option value="🏠 Personal">
+                            🏠 Personal
+                        </option>
+
+                        <option value="💼 Work">
+                            💼 Work
+                        </option>
+
+                        <option value="💪 Health">
+                            💪 Health
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- Priority -->
+
+                <div>
+
+                    <label class="text-sm font-semibold text-[#87646f]">
+                        Priority
+                    </label>
+
+                    <select
+                        id="priorityInput"
+                        class="cute-input w-full mt-2 px-4 py-3 rounded-2xl">
+
+                        <option value="Low">
+                            🌱 Low
+                        </option>
+
+                        <option value="Medium" selected>
+                            🌷 Medium
+                        </option>
+
+                        <option value="High">
+                            ❤️ High
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- Time -->
+
+                <div>
+
+                    <label class="text-sm font-semibold text-[#87646f]">
+                        Time
+                    </label>
+
+                    <input
+                        id="timeInput"
+                        type="time"
+                        class="cute-input w-full mt-2 px-4 py-3 rounded-2xl"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- Add Button -->
+
+            <button
+                onclick="addTask()"
+                class="add-btn w-full mt-4 py-3 rounded-2xl font-semibold flex items-center justify-center gap-2">
+
+                <span>
+                    🌸
+                </span>
+
+                Add to My Day
+
+                <span>
+                    ✨
+                </span>
+
+            </button>
+
+        </section>
+
+
+        <!-- Progress -->
+
+        <section class="cute-card rounded-3xl p-5 mb-6">
+
+            <div class="flex justify-between items-center mb-3">
+
+                <div>
+
+                    <h3 class="font-bold text-[#76505c]">
+                        Today's Bloom 🌷
+                    </h3>
+
+                    <p class="text-xs text-[#a17c86]">
+                        Keep going, you're doing lovely!
+                    </p>
+
+                </div>
+
+                <span
+                    id="progressLabel"
+                    class="font-bold text-[#b26a7e]">
+                    0%
+                </span>
+
+            </div>
+
+
+            <div class="progress-bg h-3 rounded-full overflow-hidden">
+
+                <div
+                    id="progressBar"
+                    class="progress h-full rounded-full"
+                    style="width:0%">
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Controls -->
+
+        <section class="cute-card rounded-3xl p-4 mb-5">
+
+            <div class="flex flex-col md:flex-row gap-3 justify-between">
+
+
+                <!-- Search -->
+
+                <div class="relative flex-1">
+
+                    <span
+                        class="absolute left-4 top-3 text-[#c0929f]">
+                        🔍
+                    </span>
+
+                    <input
+                        id="searchInput"
+                        oninput="renderTasks()"
+                        type="text"
+                        placeholder="Search your tasks..."
+                        class="cute-input w-full pl-11 pr-4 py-3 rounded-2xl"
+                    >
+
+                </div>
+
+
+                <!-- Filters -->
+
+                <div class="flex gap-2">
+
+                    <button
+                        onclick="setFilter('all')"
+                        id="allBtn"
+                        class="filter-btn filter-active px-4 py-2 rounded-xl text-sm font-semibold">
+
+                        All 🌸
+
+                    </button>
+
+
+                    <button
+                        onclick="setFilter('active')"
+                        id="activeBtn"
+                        class="filter-btn bg-[#fff5f7] px-4 py-2 rounded-xl text-sm font-semibold">
+
+                        Active 🌱
+
+                    </button>
+
+
+                    <button
+                        onclick="setFilter('completed')"
+                        id="completedBtn"
+                        class="filter-btn bg-[#fff5f7] px-4 py-2 rounded-xl text-sm font-semibold">
+
+                        Done 🌷
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Tasks -->
+
+        <section class="cute-card rounded-[30px] p-5 md:p-7">
+
+
+            <div class="flex justify-between items-center mb-5">
+
+                <div>
+
+                    <h2 class="title-font text-2xl font-bold text-[#76505c]">
+                        My Little Tasks 🌼
+                    </h2>
+
+                    <p class="text-sm text-[#a17c86]">
+                        One step at a time.
+                    </p>
+
+                </div>
+
+
+                <button
+                    onclick="clearCompleted()"
+                    class="text-xs text-[#bd788d] hover:text-red-500">
+
+                    Clear completed
+
+                </button>
+
+            </div>
+
+
+            <!-- Task List -->
+
+            <div
+                id="taskList"
+                class="space-y-3 max-h-[500px] overflow-y-auto pr-1">
+            </div>
+
+
+            <!-- Empty -->
+
+            <div
+                id="emptyState"
+                class="text-center py-12">
+
+                <div class="text-6xl mb-4">
+                    🌷
+                </div>
+
+                <h3 class="title-font text-xl font-bold text-[#76505c]">
+                    Your garden is waiting...
+                </h3>
+
+                <p class="text-sm text-[#a17c86] mt-2">
+                    Add your first little task and watch it bloom! 🌸
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- Footer -->
+
+        <footer class="text-center mt-8 text-sm text-[#a17c86]">
+
+            Made with 🌸 & love
+
+            <br>
+
+            <span class="text-xs">
+                You don't have to do everything today. ✨
+            </span>
+
+        </footer>
+
+    </main>
+
+
+    <script>
+
+
+        // ==========================
+        // DATA
+        // ==========================
+
+        let tasks =
+            JSON.parse(
+                localStorage.getItem("bloomTasks")
+            ) || [];
+
+
+        let currentFilter = "all";
+
+
+        // ==========================
+        // DATE
+        // ==========================
+
+        const today = new Date();
+
+        document.getElementById("currentDate")
+            .textContent =
+            today.toLocaleDateString(
+                "en-IN",
+                {
+                    weekday: "long",
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric"
+                }
+            );
+
+
+        // ==========================
+        // ADD TASK
+        // ==========================
+
+        function addTask() {
+
+            const input =
+                document.getElementById("taskInput");
+
+            const text =
+                input.value.trim();
+
+
+            if (!text) {
+
+                input.focus();
+
+                alert("🌸 Please write a task first!");
+
+                return;
+
+            }
+
+
+            const task = {
+
+                id: Date.now(),
+
+                text: text,
+
+                category:
+                    document.getElementById(
+                        "categoryInput"
+                    ).value,
+
+                priority:
+                    document.getElementById(
+                        "priorityInput"
+                    ).value,
+
+                time:
+                    document.getElementById(
+                        "timeInput"
+                    ).value,
+
+                completed: false
+
+            };
+
+
+            tasks.unshift(task);
+
+
+            saveTasks();
+
+
+            input.value = "";
+
+            document.getElementById(
+                "timeInput"
+            ).value = "";
+
+
+            renderTasks();
+
+        }
+
+
+        // ==========================
+        // DELETE
+        // ==========================
+
+        function deleteTask(id) {
+
+            tasks =
+                tasks.filter(
+                    task => task.id !== id
+                );
+
+
+            saveTasks();
+
+            renderTasks();
+
+        }
+
+
+        // ==========================
+        // COMPLETE
+        // ==========================
+
+        function toggleTask(id) {
+
+            tasks =
+                tasks.map(task => {
+
+                    if (task.id === id) {
+
+                        task.completed =
+                            !task.completed;
+
+                    }
+
+                    return task;
+
+                });
+
+
+            saveTasks();
+
+            renderTasks();
+
+        }
+
+
+        // ==========================
+        // SAVE
+        // ==========================
+
+        function saveTasks() {
+
+            localStorage.setItem(
+                "bloomTasks",
+                JSON.stringify(tasks)
+            );
+
+        }
+
+
+        // ==========================
+        // FILTER
+        // ==========================
+
+        function setFilter(filter) {
+
+            currentFilter = filter;
+
+
+            document
+                .querySelectorAll(".filter-btn")
+                .forEach(btn => {
+
+                    btn.classList.remove(
+                        "filter-active"
+                    );
+
+                });
+
+
+            if (filter === "all") {
+
+                document
+                    .getElementById("allBtn")
+                    .classList.add(
+                        "filter-active"
+                    );
+
+            }
+
+
+            if (filter === "active") {
+
+                document
+                    .getElementById("activeBtn")
+                    .classList.add(
+                        "filter-active"
+                    );
+
+            }
+
+
+            if (filter === "completed") {
+
+                document
+                    .getElementById("completedBtn")
+                    .classList.add(
+                        "filter-active"
+                    );
+
+            }
+
+
+            renderTasks();
+
+        }
+
+
+        // ==========================
+        // RENDER
+        // ==========================
+
+        function renderTasks() {
+
+            const list =
+                document.getElementById(
+                    "taskList"
+                );
+
+
+            const empty =
+                document.getElementById(
+                    "emptyState"
+                );
+
+
+            const search =
+                document
+                    .getElementById(
+                        "searchInput"
+                    )
+                    .value
+                    .toLowerCase();
+
+
+            let filtered =
+                tasks.filter(task => {
+
+
+                    const matchesSearch =
+                        task.text
+                            .toLowerCase()
+                            .includes(search);
+
+
+                    let matchesFilter = true;
+
+
+                    if (
+                        currentFilter ===
+                        "active"
+                    ) {
+
+                        matchesFilter =
+                            !task.completed;
+
+                    }
+
+
+                    if (
+                        currentFilter ===
+                        "completed"
+                    ) {
+
+                        matchesFilter =
+                            task.completed;
+
+                    }
+
+
+                    return (
+                        matchesSearch &&
+                        matchesFilter
+                    );
+
+                });
+
+
+            list.innerHTML = "";
+
+
+            if (filtered.length === 0) {
+
+                empty.classList.remove(
+                    "hidden"
+                );
+
+            } else {
+
+                empty.classList.add(
+                    "hidden"
+                );
+
+            }
+
+
+            filtered.forEach(task => {
+
+                const div =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                div.className =
+                    "task rounded-2xl p-4";
+
+
+                let priorityEmoji =
+                    "🌱";
+
+
+                if (
+                    task.priority ===
+                    "Medium"
+                ) {
+
+                    priorityEmoji =
+                        "🌷";
+
+                }
+
+
+                if (
+                    task.priority ===
+                    "High"
+                ) {
+
+                    priorityEmoji =
+                        "❤️";
+
+                }
+
+
+                div.innerHTML = `
+
+                    <div class="flex items-center gap-3">
+
+                        <!-- Checkbox -->
+
+                        <button
+                            onclick="toggleTask(${task.id})"
+                            class="checkbox ${
+                                task.completed
+                                    ? "done"
+                                    : ""
+                            }"
+                        >
+
+                            ${
+                                task.completed
+                                    ? "✓"
+                                    : ""
+                            }
+
+                        </button>
+
+
+                        <!-- Task -->
+
+                        <div class="flex-1 min-w-0">
+
+                            <h3
+                                class="font-semibold text-[#76505c] ${
+                                    task.completed
+                                        ? "completed"
+                                        : ""
+                                }"
+                            >
+
+                                ${escapeHTML(task.text)}
+
+                            </h3>
+
+
+                            <div
+                                class="flex flex-wrap gap-3 mt-2 text-xs text-[#a17c86]"
+                            >
+
+                                <span>
+                                    ${task.category}
+                                </span>
+
+                                <span>
+                                    ${priorityEmoji}
+                                    ${task.priority}
+                                </span>
+
+                                ${
+                                    task.time
+                                    ? `<span>⏰ ${task.time}</span>`
+                                    : ""
+                                }
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Delete -->
+
+                        <button
+                            onclick="deleteTask(${task.id})"
+                            class="w-9 h-9 rounded-xl bg-red-50 hover:bg-red-100 text-[#d38a9e] flex items-center justify-center transition"
+                        >
+
+                            🗑️
+
+                        </button>
+
+                    </div>
+
+                `;
+
+
+                list.appendChild(div);
+
+            });
+
+
+            updateStats();
+
+        }
+
+
+        // ==========================
+        // STATS
+        // ==========================
+
+        function updateStats() {
+
+            const total =
+                tasks.length;
+
+
+            const completed =
+                tasks.filter(
+                    task => task.completed
+                ).length;
+
+
+            const pending =
+                total - completed;
+
+
+            const progress =
+                total === 0
+                    ? 0
+                    : Math.round(
+                        completed /
+                        total *
+                        100
+                    );
+
+
+            document.getElementById(
+                "totalTasks"
+            ).textContent = total;
+
+
+            document.getElementById(
+                "completedTasks"
+            ).textContent =
+                completed;
+
+
+            document.getElementById(
+                "pendingTasks"
+            ).textContent =
+                pending;
+
+
+            document.getElementById(
+                "progressText"
+            ).textContent =
+                progress + "%";
+
+
+            document.getElementById(
+                "progressLabel"
+            ).textContent =
+                progress + "%";
+
+
+            document.getElementById(
+                "progressBar"
+            ).style.width =
+                progress + "%";
+
+        }
+
+
+        // ==========================
+        // CLEAR COMPLETED
+        // ==========================
+
+        function clearCompleted() {
+
+            tasks =
+                tasks.filter(
+                    task => !task.completed
+                );
+
+
+            saveTasks();
+
+            renderTasks();
+
+        }
+
+
+        // ==========================
+        // ENTER KEY
+        // ==========================
+
+        document
+            .getElementById("taskInput")
+            .addEventListener(
+                "keypress",
+                function(event) {
+
+                    if (
+                        event.key ===
+                        "Enter"
+                    ) {
+
+                        addTask();
+
+                    }
+
+                }
+            );
+
+
+        // ==========================
+        // SECURITY
+        // ==========================
+
+        function escapeHTML(text) {
+
+            const div =
+                document.createElement("div");
+
+            div.textContent = text;
+
+            return div.innerHTML;
+
+        }
+
+
+        // ==========================
+        // INITIAL LOAD
+        // ==========================
+
+        renderTasks();
+
+    </script>
+
+</body>
+
+</html>

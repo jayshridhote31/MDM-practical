@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jayshri Dhote | CM25083</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,800;1,600&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#fdf2f8',
+                            100: '#fce7f3',
+                            200: '#fbcfe8',
+                            300: '#f472b6',
+                            400: '#e879f9',
+                            500: '#ec4899',
+                            600: '#db2777',
+                            700: '#be185d',
+                            800: '#9d174d',
+                            900: '#831843',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            overflow-x: hidden;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        /* Glassmorphism card effects */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 20px 50px rgba(236, 72, 153, 0.15);
+        }
+
+        .dark .glass-card {
+            background: rgba(17, 24, 39, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Floating Petal Canvas */
+        #petal-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.05);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(236, 72, 153, 0.4);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(236, 72, 153, 0.7);
+        }
+
+        /* Input highlight states */
+        .input-valid {
+            border-color: #10B981 !important;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15) !important;
+        }
+        .input-invalid {
+            border-color: #EF4444 !important;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15) !important;
+        }
+
+        /* Floral accent graphics */
+        .flower-corner-tl {
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            width: 120px;
+            height: 120px;
+            opacity: 0.8;
+            pointer-events: none;
+            transform: rotate(-15deg);
+        }
+        .flower-corner-br {
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            width: 140px;
+            height: 140px;
+            opacity: 0.8;
+            pointer-events: none;
+            transform: rotate(165deg);
+        }
+
+        @keyframes pulse-subtle {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+        }
+        .pulse-floral {
+            animation: pulse-subtle 4s infinite ease-in-out;
+        }
+
+        /* Print styles for receipt */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #printable-receipt, #printable-receipt * {
+                visibility: visible;
+            }
+            #printable-receipt {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                background: white !important;
+                color: black !important;
+                box-shadow: none !important;
+            }
+            .no-print {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-pink-50 via-purple-50 to-indigo-100 dark:from-slate-950 dark:via-purple-950 dark:to-slate-900 min-h-screen text-slate-800 dark:text-slate-100 relative font-sans transition-colors duration-300">
+
+    <!-- Background Petals Canvas Layer -->
+    <canvas id="petal-canvas"></canvas>
+
+    <!-- Header Navigation Bar -->
+    <header class="relative z-10 w-full px-6 py-4 flex justify-between items-center max-w-7xl mx-auto">
+        <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-pink-500 via-rose-400 to-purple-600 flex items-center justify-center text-white shadow-lg shadow-pink-500/30 transform hover:rotate-6 transition-transform">
+                <i class="fa-solid font-bold text-2xl">🎓</i>
+            </div>
+            <div>
+                <h1 class="font-serif font-extrabold text-2xl bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 dark:from-pink-400 dark:via-purple-300 dark:to-indigo-300 bg-clip-text text-transparent">
+                    Aura Blossom University
+                </h1>
+                <p class="text-xs font-medium text-slate-500 dark:text-slate-400">Admissions Portal • Academic Year 2026-27</p>
+            </div>
+        </div>
+
+        <!-- Controls (Theme Toggle & Info) -->
+        <div class="flex items-center gap-3">
+            <button id="theme-toggle" aria-label="Toggle theme" class="p-3 rounded-xl bg-white/70 dark:bg-slate-800/70 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 shadow-sm hover:scale-105 transition-all">
+                <i id="theme-icon" class="fa-solid fa-moon text-lg text-purple-600 dark:text-amber-400"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="relative z-10 max-w-4xl mx-auto px-4 py-6 mb-16">
+        
+        <!-- Registration Form Card -->
+        <div class="glass-card rounded-3xl p-6 md:p-10 relative overflow-hidden transition-all duration-300">
+            
+            <!-- SVG Floral Corner Decorations -->
+            <svg class="flower-corner-tl pulse-floral text-pink-400 dark:text-pink-600" viewBox="0 0 100 100" fill="currentColor">
+                <path d="M50 0 C60 25 75 40 100 50 C75 60 60 75 50 100 C40 75 25 60 0 50 C25 40 40 25 50 0 Z" opacity="0.4"/>
+                <circle cx="50" cy="50" r="12" fill="#F472B6"/>
+                <circle cx="20" cy="20" r="8" fill="#C084FC"/>
+                <circle cx="80" cy="20" r="6" fill="#F472B6"/>
+            </svg>
+            <svg class="flower-corner-br pulse-floral text-purple-400 dark:text-purple-600" viewBox="0 0 100 100" fill="currentColor">
+                <path d="M50 0 C60 25 75 40 100 50 C75 60 60 75 50 100 C40 75 25 60 0 50 C25 40 40 25 50 0 Z" opacity="0.4"/>
+                <circle cx="50" cy="50" r="14" fill="#A855F7"/>
+                <circle cx="30" cy="30" r="7" fill="#EC4899"/>
+            </svg>
+
+            <div class="text-center mb-8 relative">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-pink-100 dark:bg-pink-950/80 text-pink-600 dark:text-pink-300 border border-pink-200 dark:border-pink-800/50 mb-3">
+                    <i class="fa-solid fa-spa text-pink-500"></i> Registration Phase
+                </span>
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-slate-800 dark:text-slate-100">
+                    Student Enrolment Form
+                </h2>
+                <p class="text-sm text-slate-500 dark:text-slate-400 mt-1 max-w-lg mx-auto">
+                    Complete your application in three simple steps. Ensure all details match your official documents.
+                </p>
+
+                <!-- Multi-step Indicator Bar -->
+                <div class="flex items-center justify-between max-w-md mx-auto mt-8 relative">
+                    <!-- Progress line behind -->
+                    <div class="absolute top-1/2 left-0 right-0 h-1 bg-slate-200 dark:bg-slate-700 -translate-y-1/2 z-0"></div>
+                    <div id="step-progress-bar" class="absolute top-1/2 left-0 h-1 bg-gradient-to-r from-pink-500 to-purple-600 -translate-y-1/2 z-0 transition-all duration-300" style="width: 0%;"></div>
+
+                    <!-- Step 1 Button -->
+                    <button type="button" onclick="goToStep(1)" id="step-btn-1" class="relative z-10 w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm bg-gradient-to-tr from-pink-500 to-purple-600 text-white shadow-md shadow-pink-500/30 transition-transform hover:scale-110">
+                        1
+                    </button>
+
+                    <!-- Step 2 Button -->
+                    <button type="button" onclick="goToStep(2)" id="step-btn-2" class="relative z-10 w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 border-2 border-white dark:border-slate-800 transition-transform hover:scale-110">
+                        2
+                    </button>
+
+                    <!-- Step 3 Button -->
+                    <button type="button" onclick="goToStep(3)" id="step-btn-3" class="relative z-10 w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 border-2 border-white dark:border-slate-800 transition-transform hover:scale-110">
+                        3
+                    </button>
+                </div>
+                <div class="flex justify-between text-xs font-semibold text-slate-500 dark:text-slate-400 max-w-md mx-auto mt-2 px-1">
+                    <span>Personal Info</span>
+                    <span>Academic Info</span>
+                    <span>Security & Account</span>
+                </div>
+            </div>
+
+            <!-- Form Start -->
+            <form id="registration-form" novalidate onsubmit="handleFormSubmit(event)">
+
+                <!-- STEP 1: Personal Details -->
+                <div id="step-1" class="step-content space-y-5">
+                    <div class="border-b border-pink-100 dark:border-slate-800 pb-3 mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-user-graduate text-pink-500"></i>
+                        <h3 class="font-bold text-lg text-slate-800 dark:text-slate-200">Personal Details</h3>
+                    </div>
+
+                    <!-- Full Name -->
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5" for="fullname">
+                            Full Name <span class="text-rose-500">*</span>
+                        </label>
+                        <div class="relative">
+                            <i class="fa-regular fa-user absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                            <input type="text" id="fullname" name="fullname" placeholder="e.g. Eleanor Vance"
+                                class="w-full pl-11 pr-10 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-900/80 focus:outline-none transition-all"
+                                oninput="validateField('fullname')">
+                            <i id="fullname-icon" class="fa-solid absolute right-3 top-1/2 -translate-y-1/2 hidden"></i>
+                        </div>
+                        <p id="fullname-error" class="text-xs text-rose-500 mt-1 hidden font-medium"></p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <!-- Date of Birth -->
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5" for="dob">
+                                Date of Birth <span class="text-rose-500">*</span>
+                            </label>
+                            <div class="relative">
+                                <i class="fa-regular fa-calendar absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                                <input type="date" id="dob" name="dob"
+                                    class="w-full pl-11 pr-10 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-900/80 focus:outline-none transition-all text-slate-700 dark:text-slate-200"
+                                    onchange="validateField('dob')">
+                                <i id="dob-icon" class="fa-solid absolute right-3 top-1/2 -translate-y-1/2 hidden"></i>
+                            </div>
+                            <p id="dob-error" class="text-xs text-rose-500 mt-1 hidden font-medium"></p>
+                        </div>
+
+                        <!-- Gender -->
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5" for="gender">
+                                Gender <span class="text-rose-500">*</span>
+                            </label>
+                            <div class="relative">
+                                <i class="fa-solid fa-venus-mars absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                                <select id="gender" name="gender"
+                                    class="w-full pl-11 pr-10 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-900/80 focus:outline-none transition-all text-slate-700 dark:text-slate-200 appearance-none"
+                                    onchange="validateField('gender')">
+                                    <option value="" disabled selected>Select Gender</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Non-Binary">Non-Binary</option>
+                                    <option value="Prefer not to say">Prefer not to say</option>
+                                </select>
+                                <i class="fa-solid fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none"></i>
+                            </div>
+                            <p id="gender-error" class="text-xs text-rose-500 mt-1 hidden font-medium"></p>
+                        </div>
+                    </div>
+
+                    <!-- Permanent Address -->
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5" for="address">
+                            Residential Address <span class="text-rose-500">*</span>
+                        </label>
+                        <div class="relative">
+                            <i class="fa-solid fa-house-chimney absolute left-4 top-4 text-slate-400"></i>
+                            <textarea id="address" name="address" rows="3" placeholder="Enter complete residential address with PIN/Zip code..."
+                                class="w-full pl-11 pr-10 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-900/80 focus:outline-none transition-all resize-none"
+                                oninput="validateField('address')"></textarea>
+                        </div>
+                        <p id="address-error" class="text-xs text-rose-500 mt-1 hidden font-medium"></p>
+                    </div>
+
+                    <div class="flex justify-end pt-4">
+                        <button type="button" onclick="nextStep(1)" class="px-6 py-3 rounded-xl bg-gradient-to-r from-pink-500 to-purple-600 text-white font-semibold shadow-lg shadow-pink-500/25 hover:shadow-xl hover:scale-[1.02] active:scale-95 transition-all flex items-center gap-2">
+                            Next: Academic Info <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- STEP 2: Academic Program & Contact Info -->
+                <div id="step-2" class="step-content space-y-5 hidden">
+                    <div class="border-b border-pink-100 dark:border-slate-800 pb-3 mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-book-open text-purple-500"></i>
+                        <h3 class="font-bold text-lg text-slate-800 dark:text-slate-200">Academic & Contact Info</h3>
+                    </div>
+
+                    <!-- Target Course -->
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5" for="course">
+                            Preferred Degree Program <span class="text-rose-500">*</span>
+                        </label>
+                        <div class="relative">
+                            <i class="fa-solid fa-graduation-cap absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                            <select id="course" name="course"
+                                class="w-full pl-11 pr-10 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-900/80 focus:outline-none transition-all text-slate-700 dark:text-slate-200 appearance-none"
+                                onchange="validateField('course')">
+                                <option value="" disabled selected>Select Course / Program</option>
+                                <option value="B.Tech Computer Science & AI">B.Tech Computer Science & AI</option>
+                                <option value="B.Sc Biotechnology & Genetics">B.Sc Biotechnology & Genetics</option>
+                                <option value="B.Arch Environmental Architecture">B.Arch Environmental Architecture</option>
+                                <option value="B.BA Digital Business & Finance">B.BA Digital Business & Finance</option>
+                                <option value="B.A. Visual Arts & Media Design">B.A. Visual Arts & Media Design</option>
+                            </select>
+                            <i class="fa-solid fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none"></i>
+                        </div>
+                        <p id="course-error" class="text-xs text-rose-500 mt-1 hidden font-medium"></p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <!-- Email Address -->
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5" for="email">
+                                Email Address <span class="text-rose-500">*</span>
+                            </label>
+                            <div class="relative">
+                                <i class="fa-regular fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                                <input type="email" id="email" name="email" placeholder="student@example.com"
+                                    class="w-full pl-11 pr-10 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-900/80 focus:outline-none transition-all"
+                                    oninput="validateField('email')">
+                                <i id="email-icon" class="fa-solid absolute right-3 top-1/2 -translate-y-1/2 hidden"></i>
+                            </div>
+                            <p id="email-error" class="text-xs text-rose-500 mt-1 hidden font-medium"></p>
+                        </div>
+
+                        <!-- Mobile Number -->
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5" for="mobile">
+                                Mobile Number (10 Digits) <span class="text-rose-500">*</span>
+                            </label>
+                            <div class="relative">
+                                <i class="fa-solid fa-phone absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                                <input type="tel" id="mobile" name="mobile" placeholder="9876543210" maxlength="10"
+                                    class="w-full pl-11 pr-10 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-900/80 focus:outline-none transition-all"
+                                    oninput="validateField('mobile')">
+                                <i id="mobile-icon" class="fa-solid absolute right-3 top-1/2 -translate-y-1/2 hidden"></i>
+                            </div>
+                            <p id="mobile-error" class="text-xs text-rose-500 mt-1 hidden font-medium"></p>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between pt-4">
+                        <button type="button" onclick="goToStep(1)" class="px-6 py-3 rounded-xl border border-slate-300 dark:border-slate-700 font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all flex items-center gap-2">
+                            <i class="fa-solid fa-arrow-left text-xs"></i> Back
+                        </button>
+                        <button type="button" onclick="nextStep(2)" class="px-6 py-3 rounded-xl bg-gradient-to-r from-pink-500 to-purple-600 text-white font-semibold shadow-lg shadow-pink-500/25 hover:shadow-xl hover:scale-[1.02] active:scale-95 transition-all flex items-center gap-2">
+                            Next: Security <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- STEP 3: Security & Submission -->
+                <div id="step-3" class="step-content space-y-5 hidden">
+                    <div class="border-b border-pink-100 dark:border-slate-800 pb-3 mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-shield-halved text-indigo-500"></i>
+                        <h3 class="font-bold text-lg text-slate-800 dark:text-slate-200">Account Security</h3>
+                    </div>
+
+                    <!-- Password -->
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5" for="password">
+                            Create Portal Password <span class="text-rose-500">*</span>
+                        </label>
+                        <div class="relative">
+                            <i class="fa-solid fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                            <input type="password" id="password" name="password" placeholder="At least 8 characters"
+                                class="w-full pl-11 pr-12 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-900/80 focus:outline-none transition-all"
+                                oninput="validateField('password'); checkPasswordStrength();">
+                            <button type="button" onclick="togglePasswordVisibility('password', 'pw-toggle-icon')" class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+                                <i id="pw-toggle-icon" class="fa-regular fa-eye"></i>
+                            </button>
+                        </div>
+                        <p id="password-error" class="text-xs text-rose-500 mt-1 hidden font-medium"></p>
+
+                        <!-- Password Strength Meter -->
+                        <div class="mt-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200/60 dark:border-slate-800">
+                            <div class="flex justify-between items-center text-xs font-semibold mb-1.5">
+                                <span class="text-slate-500">Password Strength:</span>
+                                <span id="strength-label" class="text-slate-400 font-bold">None</span>
+                            </div>
+                            <div class="w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden flex gap-1">
+                                <div id="strength-bar-1" class="h-full w-1/4 bg-slate-300 dark:bg-slate-600 transition-colors duration-300"></div>
+                                <div id="strength-bar-2" class="h-full w-1/4 bg-slate-300 dark:bg-slate-600 transition-colors duration-300"></div>
+                                <div id="strength-bar-3" class="h-full w-1/4 bg-slate-300 dark:bg-slate-600 transition-colors duration-300"></div>
+                                <div id="strength-bar-4" class="h-full w-1/4 bg-slate-300 dark:bg-slate-600 transition-colors duration-300"></div>
+                            </div>
+                            <!-- Password Checklist -->
+                            <div class="grid grid-cols-2 gap-2 mt-2.5 text-xs">
+                                <div id="req-length" class="text-slate-400 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-circle-dot text-[10px]"></i> Min 8 characters
+                                </div>
+                                <div id="req-number" class="text-slate-400 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-circle-dot text-[10px]"></i> Contains number
+                                </div>
+                                <div id="req-upper" class="text-slate-400 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-circle-dot text-[10px]"></i> Uppercase letter
+                                </div>
+                                <div id="req-special" class="text-slate-400 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-circle-dot text-[10px]"></i> Special character
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Confirm Password -->
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5" for="confirm_password">
+                            Confirm Password <span class="text-rose-500">*</span>
+                        </label>
+                        <div class="relative">
+                            <i class="fa-solid fa-key absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                            <input type="password" id="confirm_password" name="confirm_password" placeholder="Re-enter your password"
+                                class="w-full pl-11 pr-12 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-900/80 focus:outline-none transition-all"
+                                oninput="validateField('confirm_password')">
+                        </div>
+                        <p id="confirm_password-error" class="text-xs text-rose-500 mt-1 hidden font-medium"></p>
+                    </div>
+
+                    <!-- Terms & Conditions Checkbox -->
+                    <div class="pt-2">
+                        <label class="flex items-start gap-3 cursor-pointer group">
+                            <input type="checkbox" id="terms" name="terms" onchange="validateField('terms')"
+                                class="mt-1 w-4 h-4 rounded text-pink-600 focus:ring-pink-500 border-slate-300 dark:border-slate-700">
+                            <span class="text-xs text-slate-600 dark:text-slate-400">
+                                I hereby declare that all information provided is accurate and authentic to the best of my knowledge. I accept the <a href="#" onclick="alert('University Terms & Code of Conduct: Please adhere to academic honesty and campus regulations.'); return false;" class="text-pink-600 dark:text-pink-400 underline font-semibold">Terms & Code of Conduct</a>.
+                            </span>
+                        </label>
+                        <p id="terms-error" class="text-xs text-rose-500 mt-1 hidden font-medium"></p>
+                    </div>
+
+                    <div class="flex justify-between pt-6">
+                        <button type="button" onclick="goToStep(2)" class="px-6 py-3 rounded-xl border border-slate-300 dark:border-slate-700 font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all flex items-center gap-2">
+                            <i class="fa-solid fa-arrow-left text-xs"></i> Back
+                        </button>
+                        
+                        <!-- Submit Button with Floral Particle Burst -->
+                        <button type="submit" id="submit-btn" class="px-8 py-3.5 rounded-xl bg-gradient-to-r from-pink-500 via-rose-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-bold shadow-xl shadow-pink-500/30 hover:scale-105 active:scale-95 transition-all flex items-center gap-3 group">
+                            <i class="fa-solid fa-paper-plane group-hover:rotate-12 transition-transform"></i> Submit Application
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </main>
+
+    <!-- SUCCESS CONFIRMATION RECEIPT MODAL -->
+    <div id="success-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
+        <div class="glass-card bg-white dark:bg-slate-900 rounded-3xl max-w-2xl w-full p-6 md:p-8 relative shadow-2xl overflow-hidden border border-pink-200 dark:border-slate-800 transform scale-95 transition-transform duration-300" id="printable-receipt">
+            
+            <!-- Floral Header Banner -->
+            <div class="text-center pb-6 border-b border-dashed border-pink-200 dark:border-slate-800 relative">
+                <div class="w-16 h-16 mx-auto mb-3 rounded-full bg-emerald-100 dark:bg-emerald-950/80 text-emerald-500 flex items-center justify-center text-3xl shadow-inner border border-emerald-300">
+                    <i class="fa-solid fa-check-double"></i>
+                </div>
+                <span class="inline-block px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-700 dark:bg-emerald-900/60 dark:text-emerald-300 mb-2">
+                    VERIFIED & SUBMITTED
+                </span>
+                <h3 class="text-2xl font-serif font-bold text-slate-800 dark:text-slate-100">
+                    Admission Application Receipt
+                </h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Aura Blossom University • Registration Portal 2026</p>
+                <div class="mt-2 text-xs font-mono text-purple-600 dark:text-purple-400 font-bold" id="receipt-id">
+                    REG-ID: ABU-2026-9821
+                </div>
+            </div>
+
+            <!-- Receipt Details Grid -->
+            <div class="py-6 space-y-4 text-sm">
+                <div class="grid grid-cols-2 gap-4 bg-pink-50/50 dark:bg-slate-800/50 p-4 rounded-2xl border border-pink-100/60 dark:border-slate-800">
+                    <div>
+                        <span class="text-xs text-slate-400 uppercase tracking-wider block">Applicant Name</span>
+                        <span id="rec-fullname" class="font-bold text-slate-800 dark:text-slate-100 text-base">---</span>
+                    </div>
+                    <div>
+                        <span class="text-xs text-slate-400 uppercase tracking-wider block">Selected Course</span>
+                        <span id="rec-course" class="font-bold text-pink-600 dark:text-pink-400">---</span>
+                    </div>
+                    <div>
+                        <span class="text-xs text-slate-400 uppercase tracking-wider block">Email Address</span>
+                        <span id="rec-email" class="font-semibold text-slate-700 dark:text-slate-300">---</span>
+                    </div>
+                    <div>
+                        <span class="text-xs text-slate-400 uppercase tracking-wider block">Mobile Number</span>
+                        <span id="rec-mobile" class="font-semibold text-slate-700 dark:text-slate-300">---</span>
+                    </div>
+                    <div>
+                        <span class="text-xs text-slate-400 uppercase tracking-wider block">Date of Birth</span>
+                        <span id="rec-dob" class="font-semibold text-slate-700 dark:text-slate-300">---</span>
+                    </div>
+                    <div>
+                        <span class="text-xs text-slate-400 uppercase tracking-wider block">Gender</span>
+                        <span id="rec-gender" class="font-semibold text-slate-700 dark:text-slate-300">---</span>
+                    </div>
+                </div>
+
+                <div class="p-3 bg-slate-50 dark:bg-slate-800/30 rounded-xl text-xs text-slate-500 dark:text-slate-400">
+                    <strong>Address:</strong> <span id="rec-address">---</span>
+                </div>
+            </div>
+
+            <!-- Modal Action Footer Buttons -->
+            <div class="flex flex-col sm:flex-row gap-3 pt-4 border-t border-slate-200 dark:border-slate-800 no-print">
+                <button type="button" onclick="window.print()" class="flex-1 py-3 px-4 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-semibold transition-all flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-print"></i> Print Receipt
+                </button>
+                <button type="button" onclick="resetForm()" class="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-pink-500 to-purple-600 text-white font-semibold hover:shadow-lg transition-all flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-rotate-right"></i> Submit Another Form
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* Floating Flower Petal Animation Logic */
+        const canvas = document.getElementById('petal-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        class Petal {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * width;
+                this.y = -20;
+                this.size = Math.random() * 12 + 8;
+                this.speedY = Math.random() * 1.5 + 0.8;
+                this.speedX = Math.random() * 1 - 0.5;
+                this.rotation = Math.random() * 360;
+                this.rotationSpeed = (Math.random() - 0.5) * 2;
+                this.opacity = Math.random() * 0.5 + 0.4;
+                // Petal soft colorful palettes
+                const colors = ['#f472b6', '#fbcfe8', '#e879f9', '#c084fc', '#fda4af'];
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+            }
+
+            update() {
+                this.y += this.speedY;
+                this.x += Math.sin(this.y * 0.01) + this.speedX;
+                this.rotation += this.rotationSpeed;
+
+                if (this.y > height + 20) {
+                    this.reset();
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate((this.rotation * Math.PI) / 180);
+                ctx.globalAlpha = this.opacity;
+                ctx.fillStyle = this.color;
+
+                // Draw organic petal shape
+                ctx.beginPath();
+                ctx.moveTo(0, 0);
+                ctx.bezierCurveTo(-this.size, -this.size / 2, -this.size, this.size, 0, this.size * 1.5);
+                ctx.bezierCurveTo(this.size, this.size, this.size, -this.size / 2, 0, 0);
+                ctx.fill();
+
+                ctx.restore();
+            }
+        }
+
+        const petals = Array.from({ length: 30 }, () => new Petal());
+
+        function animatePetals() {
+            ctx.clearRect(0, 0, width, height);
+            petals.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animatePetals);
+        }
+
+        window.onload = function() {
+            animatePetals();
+        };
+
+        let currentStep = 1;
+
+        function goToStep(step) {
+            if (step > currentStep) {
+                // Validate current step before proceeding forward
+                if (!validateCurrentStep(currentStep)) return;
+            }
+
+            document.querySelectorAll('.step-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(`step-${step}`).classList.remove('hidden');
+
+            // Update Stepper Buttons UI
+            currentStep = step;
+            const progressBar = document.getElementById('step-progress-bar');
+            progressBar.style.width = `${(step - 1) * 50}%`;
+
+            for (let i = 1; i <= 3; i++) {
+                const btn = document.getElementById(`step-btn-${i}`);
+                if (i <= step) {
+                    btn.className = "relative z-10 w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm bg-gradient-to-tr from-pink-500 to-purple-600 text-white shadow-md shadow-pink-500/30 transition-transform hover:scale-110";
+                } else {
+                    btn.className = "relative z-10 w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 border-2 border-white dark:border-slate-800 transition-transform hover:scale-110";
+                }
+            }
+        }
+
+        function nextStep(step) {
+            if (validateCurrentStep(step)) {
+                goToStep(step + 1);
+            }
+        }
+
+        function setError(fieldId, message) {
+            const errorEl = document.getElementById(`${fieldId}-error`);
+            const inputEl = document.getElementById(fieldId);
+            const iconEl = document.getElementById(`${fieldId}-icon`);
+
+            if (errorEl) {
+                errorEl.textContent = message;
+                errorEl.classList.remove('hidden');
+            }
+            if (inputEl) {
+                inputEl.classList.remove('input-valid');
+                inputEl.classList.add('input-invalid');
+            }
+            if (iconEl) {
+                iconEl.className = "fa-solid fa-circle-exclamation absolute right-3 top-1/2 -translate-y-1/2 text-rose-500";
+                iconEl.classList.remove('hidden');
+            }
+        }
+
+        function clearError(fieldId) {
+            const errorEl = document.getElementById(`${fieldId}-error`);
+            const inputEl = document.getElementById(fieldId);
+            const iconEl = document.getElementById(`${fieldId}-icon`);
+
+            if (errorEl) {
+                errorEl.classList.add('hidden');
+            }
+            if (inputEl) {
+                inputEl.classList.remove('input-invalid');
+                inputEl.classList.add('input-valid');
+            }
+            if (iconEl) {
+                iconEl.className = "fa-solid fa-circle-check absolute right-3 top-1/2 -translate-y-1/2 text-emerald-500";
+                iconEl.classList.remove('hidden');
+            }
+        }
+
+        function validateField(fieldId) {
+            const val = document.getElementById(fieldId)?.value.trim() || '';
+
+            switch (fieldId) {
+                case 'fullname':
+                    if (!val) {
+                        setError('fullname', 'Full Name is required.');
+                        return false;
+                    } else if (val.length < 3) {
+                        setError('fullname', 'Name must be at least 3 characters long.');
+                        return false;
+                    } else if (!/^[a-zA-A\s]+$/.test(val)) {
+                        setError('fullname', 'Name should contain alphabets only.');
+                        return false;
+                    }
+                    clearError('fullname');
+                    return true;
+
+                case 'dob':
+                    if (!val) {
+                        setError('dob', 'Date of birth is mandatory.');
+                        return false;
+                    } else {
+                        const birthYear = new Date(val).getFullYear();
+                        const currentYear = new Date().getFullYear();
+                        if (currentYear - birthYear < 15) {
+                            setError('dob', 'Applicant must be at least 15 years old.');
+                            return false;
+                        }
+                    }
+                    clearError('dob');
+                    return true;
+
+                case 'gender':
+                    if (!val) {
+                        setError('gender', 'Please select a gender.');
+                        return false;
+                    }
+                    clearError('gender');
+                    return true;
+
+                case 'address':
+                    if (!val) {
+                        setError('address', 'Residential address is required.');
+                        return false;
+                    } else if (val.length < 10) {
+                        setError('address', 'Please enter a more detailed address.');
+                        return false;
+                    }
+                    clearError('address');
+                    return true;
+
+                case 'course':
+                    if (!val) {
+                        setError('course', 'Please choose a degree program.');
+                        return false;
+                    }
+                    clearError('course');
+                    return true;
+
+                case 'email':
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!val) {
+                        setError('email', 'Email address is required.');
+                        return false;
+                    } else if (!emailRegex.test(val)) {
+                        setError('email', 'Please enter a valid email (e.g. name@domain.com).');
+                        return false;
+                    }
+                    clearError('email');
+                    return true;
+
+                case 'mobile':
+                    const mobileRegex = /^[0-9]{10}$/;
+                    if (!val) {
+                        setError('mobile', 'Mobile number is required.');
+                        return false;
+                    } else if (!mobileRegex.test(val)) {
+                        setError('mobile', 'Mobile number must be exactly 10 digits.');
+                        return false;
+                    }
+                    clearError('mobile');
+                    return true;
+
+                case 'password':
+                    if (!val) {
+                        setError('password', 'Password is required.');
+                        return false;
+                    } else if (val.length < 8) {
+                        setError('password', 'Password must be at least 8 characters long.');
+                        return false;
+                    }
+                    clearError('password');
+                    return true;
+
+                case 'confirm_password':
+                    const pw = document.getElementById('password').value;
+                    if (!val) {
+                        setError('confirm_password', 'Please confirm your password.');
+                        return false;
+                    } else if (val !== pw) {
+                        setError('confirm_password', 'Passwords do not match.');
+                        return false;
+                    }
+                    clearError('confirm_password');
+                    return true;
+
+                case 'terms':
+                    const termsChecked = document.getElementById('terms').checked;
+                    if (!termsChecked) {
+                        setError('terms', 'You must agree to the university terms.');
+                        return false;
+                    }
+                    clearError('terms');
+                    return true;
+
+                default:
+                    return true;
+            }
+        }
+
+        function validateCurrentStep(step) {
+            let isValid = true;
+            if (step === 1) {
+                isValid = validateField('fullname') & validateField('dob') & validateField('gender') & validateField('address');
+            } else if (step === 2) {
+                isValid = validateField('course') & validateField('email') & validateField('mobile');
+            } else if (step === 3) {
+                isValid = validateField('password') & validateField('confirm_password') & validateField('terms');
+            }
+            return Boolean(isValid);
+        }
+
+        /* Password Strength Meter Functionality */
+        function checkPasswordStrength() {
+            const val = document.getElementById('password').value;
+            let score = 0;
+
+            const reqLen = val.length >= 8;
+            const reqNum = /\d/.test(val);
+            const reqUpper = /[A-Z]/.test(val);
+            const reqSpec = /[^A-Za-z0-9]/.test(val);
+
+            // Update requirement indicators
+            updateReqUI('req-length', reqLen);
+            updateReqUI('req-number', reqNum);
+            updateReqUI('req-upper', reqUpper);
+            updateReqUI('req-special', reqSpec);
+
+            if (reqLen) score++;
+            if (reqNum) score++;
+            if (reqUpper) score++;
+            if (reqSpec) score++;
+
+            const label = document.getElementById('strength-label');
+            const bars = [
+                document.getElementById('strength-bar-1'),
+                document.getElementById('strength-bar-2'),
+                document.getElementById('strength-bar-3'),
+                document.getElementById('strength-bar-4')
+            ];
+
+            // Reset bar colors
+            bars.forEach(bar => bar.className = "h-full w-1/4 bg-slate-300 dark:bg-slate-600 transition-colors duration-300");
+
+            if (val.length === 0) {
+                label.textContent = "None";
+                label.className = "text-slate-400 font-bold";
+                return;
+            }
+
+            if (score <= 1) {
+                label.textContent = "Weak";
+                label.className = "text-rose-500 font-bold";
+                bars[0].classList.add('bg-rose-500');
+            } else if (score === 2 || score === 3) {
+                label.textContent = "Medium";
+                label.className = "text-amber-500 font-bold";
+                bars[0].classList.add('bg-amber-500');
+                bars[1].classList.add('bg-amber-500');
+                if (score === 3) bars[2].classList.add('bg-amber-500');
+            } else {
+                label.textContent = "Strong";
+                label.className = "text-emerald-500 font-bold";
+                bars.forEach(bar => bar.classList.add('bg-emerald-500'));
+            }
+        }
+
+        function updateReqUI(reqId, met) {
+            const el = document.getElementById(reqId);
+            if (met) {
+                el.className = "text-emerald-500 flex items-center gap-1.5 font-medium";
+                el.querySelector('i').className = "fa-solid fa-circle-check text-[10px]";
+            } else {
+                el.className = "text-slate-400 flex items-center gap-1.5";
+                el.querySelector('i').className = "fa-solid fa-circle-dot text-[10px]";
+            }
+        }
+
+        function togglePasswordVisibility(id, iconId) {
+            const input = document.getElementById(id);
+            const icon = document.getElementById(iconId);
+            if (input.type === "password") {
+                input.type = "text";
+                icon.className = "fa-regular fa-eye-slash";
+            } else {
+                input.type = "password";
+                icon.className = "fa-regular fa-eye";
+            }
+        }
+
+        function handleFormSubmit(event) {
+            event.preventDefault();
+
+            // Validate all steps
+            const step1Valid = validateCurrentStep(1);
+            const step2Valid = validateCurrentStep(2);
+            const step3Valid = validateCurrentStep(3);
+
+            if (!step1Valid) { goToStep(1); return; }
+            if (!step2Valid) { goToStep(2); return; }
+            if (!step3Valid) { goToStep(3); return; }
+
+            // Trigger Confetti Flower Burst
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#ec4899', '#a855f7', '#3b82f6', '#f472b6']
+            });
+
+            // Populate Printable Confirmation Receipt
+            document.getElementById('rec-fullname').textContent = document.getElementById('fullname').value;
+            document.getElementById('rec-course').textContent = document.getElementById('course').value;
+            document.getElementById('rec-email').textContent = document.getElementById('email').value;
+            document.getElementById('rec-mobile').textContent = document.getElementById('mobile').value;
+            document.getElementById('rec-dob').textContent = document.getElementById('dob').value;
+            document.getElementById('rec-gender').textContent = document.getElementById('gender').value;
+            document.getElementById('rec-address').textContent = document.getElementById('address').value;
+            
+            // Generate Random Receipt ID
+            document.getElementById('receipt-id').textContent = `REG-ID: ABU-2026-${Math.floor(1000 + Math.random() * 9000)}`;
+
+            // Show Confirmation Modal with Smooth Animation
+            const modal = document.getElementById('success-modal');
+            const modalContent = document.getElementById('printable-receipt');
+            
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modalContent.classList.remove('scale-95');
+                modalContent.classList.add('scale-100');
+            }, 10);
+        }
+
+        function resetForm() {
+            document.getElementById('registration-form').reset();
+            document.querySelectorAll('input, select, textarea').forEach(el => {
+                el.classList.remove('input-valid', 'input-invalid');
+            });
+            document.querySelectorAll('[id$="-icon"]').forEach(el => el.classList.add('hidden'));
+
+            const modal = document.getElementById('success-modal');
+            modal.classList.add('opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                goToStep(1);
+            }, 300);
+        }
+
+        /* Theme Toggle Handler (Light/Dark Mode) */
+        const themeBtn = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+
+        themeBtn.addEventListener('click', () => {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                themeIcon.className = "fa-solid fa-moon text-lg text-purple-600";
+            } else {
+                document.documentElement.classList.add('dark');
+                themeIcon.className = "fa-solid fa-sun text-lg text-amber-400";
+            }
+        });
+    </script>
+</body>
+</html>

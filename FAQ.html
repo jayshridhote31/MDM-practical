@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jayshri Dhote | CM25083</title>
+  <!-- Google Fonts: Outfit for clean, friendly modern look -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      /* Soft Pastel Color Palette */
+      --pastel-lavender: #e8dff5;
+      --pastel-peach: #fce1e4;
+      --pastel-rose: #fcf1f0;
+      --pastel-mint: #ddedea;
+      --pastel-butter: #fcf4dd;
+      --pastel-sky: #daeaf6;
+      
+      /* Vibrant Accent Pastels */
+      --accent-lavender: #9d84b7;
+      --accent-rose: #e56b87;
+      --accent-mint: #4fa89b;
+      --accent-peach: #e07a5f;
+      --accent-sky: #5d93bb;
+
+      --text-dark: #373248;
+      --text-muted: #6f6880;
+      --card-bg: rgba(255, 255, 255, 0.85);
+      --border-color: rgba(255, 255, 255, 0.95);
+      --radius: 20px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      color: var(--text-dark);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 3rem 1.5rem;
+      position: relative;
+      overflow-x: hidden;
+      /* Soft floral pastel gradient background */
+      background: linear-gradient(135deg, #fce1e4 0%, #fcf4dd 25%, #ddedea 55%, #e8dff5 85%, #daeaf6 100%);
+      background-attachment: fixed;
+    }
+
+    /* Ambient Floating Floral Botanical Ornaments (SVG) */
+    .flora-bg {
+      position: absolute;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.55;
+      filter: drop-shadow(0 8px 16px rgba(0,0,0,0.04));
+    }
+    .flora-1 { top: -20px; left: -30px; width: 220px; transform: rotate(15deg); }
+    .flora-2 { bottom: 20px; right: -40px; width: 250px; transform: rotate(-25deg); }
+    .flora-3 { top: 40%; left: 3%; width: 140px; transform: rotate(45deg); opacity: 0.35; }
+    .flora-4 { top: 15%; right: 4%; width: 150px; transform: rotate(-12deg); opacity: 0.35; }
+
+    /* Main Container */
+    .portal-card {
+      width: 100%;
+      max-width: 820px;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 2px solid var(--border-color);
+      border-radius: 30px;
+      padding: 3.5rem 3rem;
+      box-shadow: 0 20px 50px -10px rgba(135, 115, 160, 0.18),
+                  0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Header Section */
+    .portal-header {
+      text-align: center;
+      margin-bottom: 2.75rem;
+    }
+
+    .floral-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #ffffff;
+      color: var(--accent-rose);
+      font-size: 0.88rem;
+      font-weight: 700;
+      padding: 0.45rem 1.25rem;
+      border-radius: 50px;
+      margin-bottom: 1.2rem;
+      box-shadow: 0 4px 15px rgba(229, 107, 135, 0.15);
+      border: 1px solid rgba(229, 107, 135, 0.2);
+    }
+
+    .floral-badge svg {
+      width: 16px;
+      height: 16px;
+      fill: var(--accent-rose);
+    }
+
+    .portal-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.85rem;
+      font-weight: 600;
+      color: #2b253b;
+      margin-bottom: 0.6rem;
+      letter-spacing: -0.5px;
+    }
+
+    .portal-header p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      max-width: 530px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Pastel Search Bar */
+    .search-box {
+      position: relative;
+      margin-bottom: 2.5rem;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 1.1rem 1.4rem 1.1rem 3.4rem;
+      font-size: 1.05rem;
+      font-family: inherit;
+      border: 2px solid transparent;
+      border-radius: 50px;
+      background: #ffffff;
+      color: var(--text-dark);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.04);
+      outline: none;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .search-input:focus {
+      border-color: var(--accent-lavender);
+      box-shadow: 0 10px 30px rgba(157, 132, 183, 0.25);
+      transform: translateY(-2px);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 1.3rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--accent-lavender);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* FAQ List */
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    /* Colorful Pastel FAQ Card Themes */
+    .faq-item {
+      border-radius: var(--radius);
+      border: 2px solid transparent;
+      transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+    }
+
+    .faq-item:hover {
+      transform: translateY(-3px) scale(1.008);
+    }
+
+    /* Distinct Pastel Palette for Each Card */
+    .faq-item[data-theme="peach"] {
+      background: #fff8f8;
+      border-color: #fce1e4;
+    }
+    .faq-item[data-theme="peach"]:hover, .faq-item[data-theme="peach"].active {
+      border-color: var(--accent-rose);
+      box-shadow: 0 10px 25px rgba(229, 107, 135, 0.15);
+    }
+
+    .faq-item[data-theme="lavender"] {
+      background: #fbf9ff;
+      border-color: #eee7f8;
+    }
+    .faq-item[data-theme="lavender"]:hover, .faq-item[data-theme="lavender"].active {
+      border-color: var(--accent-lavender);
+      box-shadow: 0 10px 25px rgba(157, 132, 183, 0.15);
+    }
+
+    .faq-item[data-theme="mint"] {
+      background: #f7fcfa;
+      border-color: #e0f2ed;
+    }
+    .faq-item[data-theme="mint"]:hover, .faq-item[data-theme="mint"].active {
+      border-color: var(--accent-mint);
+      box-shadow: 0 10px 25px rgba(79, 168, 155, 0.15);
+    }
+
+    .faq-item[data-theme="butter"] {
+      background: #fffdf7;
+      border-color: #faefd2;
+    }
+    .faq-item[data-theme="butter"]:hover, .faq-item[data-theme="butter"].active {
+      border-color: #e5b94c;
+      box-shadow: 0 10px 25px rgba(229, 185, 76, 0.18);
+    }
+
+    .faq-item[data-theme="sky"] {
+      background: #f7faff;
+      border-color: #e1edf7;
+    }
+    .faq-item[data-theme="sky"]:hover, .faq-item[data-theme="sky"].active {
+      border-color: var(--accent-sky);
+      box-shadow: 0 10px 25px rgba(93, 147, 187, 0.15);
+    }
+
+    /* Question Button */
+    .faq-question {
+      width: 100%;
+      background: transparent;
+      border: none;
+      padding: 1.4rem 1.6rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text-align: left;
+      font-family: inherit;
+      font-size: 1.12rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      cursor: pointer;
+      gap: 1.25rem;
+    }
+
+    .faq-badge-icon {
+      font-size: 1.25rem;
+      margin-right: 0.6rem;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    /* Blossom Floral Toggle Icon */
+    .faq-icon-bubble {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.06);
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .faq-icon-bubble svg {
+      width: 18px;
+      height: 18px;
+      stroke: var(--text-muted);
+      stroke-width: 2.2;
+      transition: transform 0.4s ease, stroke 0.3s ease;
+    }
+
+    /* Active Animation States */
+    .faq-item.active .faq-icon-bubble {
+      background: var(--text-dark);
+      transform: rotate(45deg);
+    }
+    .faq-item.active .faq-icon-bubble svg {
+      stroke: #ffffff;
+    }
+
+    /* Smooth Collapsible Body */
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0, 1, 0, 1);
+    }
+
+    .faq-answer-inner {
+      padding: 0 1.6rem 1.5rem 3.4rem;
+      color: var(--text-muted);
+      line-height: 1.75;
+      font-size: 1rem;
+    }
+
+    .faq-answer-inner strong {
+      color: var(--text-dark);
+    }
+
+    .faq-answer-inner a {
+      color: var(--accent-rose);
+      text-decoration: underline;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 3px;
+      font-weight: 600;
+    }
+
+    /* Floral Support Banner */
+    .portal-footer {
+      margin-top: 2.75rem;
+      background: linear-gradient(135deg, #fff0f3 0%, #f4edff 100%);
+      border: 2px dashed #e6d3f2;
+      padding: 1.6rem;
+      border-radius: 22px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .footer-text {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .footer-text span {
+      font-size: 1.8rem;
+    }
+
+    .footer-text p {
+      font-weight: 600;
+      color: var(--text-dark);
+      font-size: 1rem;
+    }
+
+    .footer-text small {
+      color: var(--text-muted);
+      display: block;
+      font-weight: 400;
+      margin-top: 2px;
+    }
+
+    .contact-btn {
+      background: linear-gradient(135deg, #e56b87, #9d84b7);
+      color: #ffffff;
+      padding: 0.75rem 1.4rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      box-shadow: 0 6px 18px rgba(229, 107, 135, 0.35);
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .contact-btn:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 10px 22px rgba(229, 107, 135, 0.45);
+    }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      .portal-card {
+        padding: 2.25rem 1.4rem;
+        border-radius: 22px;
+      }
+      .portal-header h1 {
+        font-size: 2.15rem;
+      }
+      .faq-question {
+        font-size: 1rem;
+        padding: 1.15rem 1.2rem;
+      }
+      .faq-answer-inner {
+        padding: 0 1.2rem 1.25rem 1.2rem;
+      }
+      .portal-footer {
+        flex-direction: column;
+        text-align: center;
+      }
+      .footer-text {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating Vector Floral SVGs -->
+  <svg class="flora-bg flora-1" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M100 20C120 50 150 60 180 60C150 80 140 110 140 140C120 110 90 100 60 100C90 80 100 50 100 20Z" fill="#fbcfe8"/>
+    <circle cx="100" cy="100" r="16" fill="#fde68a" />
+    <path d="M40 150C60 130 90 140 110 160C80 170 60 190 40 150Z" fill="#a7f3d0" />
+  </svg>
+
+  <svg class="flora-bg flora-2" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M100 30C115 65 145 75 170 75C145 95 135 125 135 155C115 125 85 115 60 115C85 95 95 65 100 30Z" fill="#ddd6fe"/>
+    <circle cx="100" cy="95" r="15" fill="#fecdd3" />
+    <path d="M120 160C140 130 175 140 185 170C155 175 135 190 120 160Z" fill="#bae6fd" />
+  </svg>
+
+  <svg class="flora-bg flora-3" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="50" cy="50" r="30" fill="#fed7aa"/>
+    <circle cx="50" cy="50" r="12" fill="#fff" />
+  </svg>
+
+  <svg class="flora-bg flora-4" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M50 10 C70 30 70 70 50 90 C30 70 30 30 50 10 Z" fill="#bbf7d0"/>
+  </svg>
+
+  <!-- Main Card -->
+  <main class="portal-card">
+    <header class="portal-header">
+      <div class="floral-badge">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+        Student Department Help Desk
+      </div>
+      <h1>Frequently Asked Questions</h1>
+      <p>Have questions about your courses, campus facilities, or exams? Explore our guide below.</p>
+    </header>
+
+    <!-- Search Box -->
+    <div class="search-box">
+      <div class="search-icon">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      </div>
+      <input type="text" id="faqSearch" class="search-input" placeholder="Search questions by keyword (e.g., exams, library, marks)...">
+    </div>
+
+    <!-- FAQ Accordion Items -->
+    <div class="faq-list" id="faqContainer">
+
+      <!-- Item 1 (Peach) -->
+      <div class="faq-item" data-theme="peach">
+        <button class="faq-question" aria-expanded="false">
+          <span><span class="faq-badge-icon">🌸</span>How do I submit an application for grade re-evaluation?</span>
+          <div class="faq-icon-bubble">
+            <svg viewBox="0 0 24 24" fill="none"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          </div>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            Applications open within <strong>14 days</strong> of exam score publication. You can submit your request directly via the <a href="#!">Student Academic Portal</a> under <em>Examinations &gt; Re-evaluation</em>. Please ensure receipt payment is uploaded before submission.
+          </div>
+        </div>
+      </div>
+
+      <!-- Item 2 (Lavender) -->
+      <div class="faq-item" data-theme="lavender">
+        <button class="faq-question" aria-expanded="false">
+          <span><span class="faq-badge-icon">🪻</span>What attendance percentage is mandatory for end-semester exams?</span>
+          <div class="faq-icon-bubble">
+            <svg viewBox="0 0 24 24" fill="none"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          </div>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            A minimum of <strong>75% attendance</strong> is compulsory in both lectures and practical labs. For cases between 65%–74% due to medical conditions, submit an official doctor's certificate countersigned by your Faculty Advisor.
+          </div>
+        </div>
+      </div>
+
+      <!-- Item 3 (Mint) -->
+      <div class="faq-item" data-theme="mint">
+        <button class="faq-question" aria-expanded="false">
+          <span><span class="faq-badge-icon">🌿</span>How do I request after-hours research laboratory access?</span>
+          <div class="faq-icon-bubble">
+            <svg viewBox="0 0 24 24" fill="none"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          </div>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            Graduate researchers and final-year capstone students can apply for evening lab passes. Submit the <strong>Lab Safety & After-Hours Form</strong> approved by your supervising professor at the Department Office.
+          </div>
+        </div>
+      </div>
+
+      <!-- Item 4 (Buttercup) -->
+      <div class="faq-item" data-theme="butter">
+        <button class="faq-question" aria-expanded="false">
+          <span><span class="faq-badge-icon">🌼</span>Where can I access past question papers and semester syllabi?</span>
+          <div class="faq-icon-bubble">
+            <svg viewBox="0 0 24 24" fill="none"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          </div>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            All lecture slides, syllabus copies, and the 5-year archives of past examination papers are available on the <a href="#!">Department Digital Library</a>. Login with your student ID credentials.
+          </div>
+        </div>
+      </div>
+
+      <!-- Item 5 (Sky Blue) -->
+      <div class="faq-item" data-theme="sky">
+        <button class="faq-question" aria-expanded="false">
+          <span><span class="faq-badge-icon">🌺</span>How can I request a Letter of Recommendation (LOR)?</span>
+          <div class="faq-icon-bubble">
+            <svg viewBox="0 0 24 24" fill="none"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          </div>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            Contact your mentor or subject professor at least <strong>3 weeks before</strong> your application deadlines. Prepare your CV, current transcript, and list of target institutions in your email inquiry.
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Floral Support Footer -->
+    <footer class="portal-footer">
+      <div class="footer-text">
+        <span>💐</span>
+        <div>
+          <p>Still need a hand with something?</p>
+          <small>Our department advisors are available Mon – Fri (9 AM – 4 PM)</small>
+        </div>
+      </div>
+      <a href="mailto:support@dept.college.edu" class="contact-btn">
+        <span>Get in Touch</span> &rarr;
+      </a>
+    </footer>
+  </main>
+
+  <!-- JavaScript DOM Logic -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const faqItems = document.querySelectorAll('.faq-item');
+      const searchInput = document.getElementById('faqSearch');
+
+      // 1. Accordion Toggle via DOM & Event Listeners
+      faqItems.forEach(item => {
+        const questionBtn = item.querySelector('.faq-question');
+        const answer = item.querySelector('.faq-answer');
+
+        questionBtn.addEventListener('click', () => {
+          const isActive = item.classList.contains('active');
+
+          // Close all open FAQs for accordion effect
+          faqItems.forEach(otherItem => {
+            if (otherItem !== item && otherItem.classList.contains('active')) {
+              otherItem.classList.remove('active');
+              otherItem.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+              otherItem.querySelector('.faq-answer').style.maxHeight = null;
+            }
+          });
+
+          // Toggle current card
+          if (isActive) {
+            item.classList.remove('active');
+            questionBtn.setAttribute('aria-expanded', 'false');
+            answer.style.maxHeight = null;
+          } else {
+            item.classList.add('active');
+            questionBtn.setAttribute('aria-expanded', 'true');
+            // Animate smoothly to exact scrollHeight
+            answer.style.maxHeight = answer.scrollHeight + 'px';
+          }
+        });
+      });
+
+      // 2. Real-Time Search Filter
+      searchInput.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase().trim();
+
+        faqItems.forEach(item => {
+          const text = item.textContent.toLowerCase();
+          if (text.includes(query)) {
+            item.style.display = 'block';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
